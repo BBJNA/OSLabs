@@ -1,3 +1,4 @@
+//INCLUDES
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,6 +8,7 @@
 
 #define MAX_BUFFER 8196
 
+//Parent Process
 int main(){
 
 int max_length = 100; 
