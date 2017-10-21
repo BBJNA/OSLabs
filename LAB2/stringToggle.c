@@ -8,17 +8,22 @@
 #include <errno.h>
 
 int StringValid(char *string);
-char* ToggleString(char *string);
+char *ToggleString(char string[]);
 
-int main(){
+int main(int argc, char *argv[]){
 
 	char ParentString[100], ChildString[100];
 	int length, i;
 
 	printf("Enter in a string: ");
 	scanf("%s", ParentString);
-	int valid = StringValid(ParentString);
+	
+	char test [strlen(ParentString)];
+	strcpy(test, ToggleString(ParentString));
 
+	printf("%s\n", test);
+
+	int valid = StringValid(ParentString);
 
  	if(valid != 0){
 	
@@ -53,7 +58,7 @@ int main(){
 			
 			pid = getpid();
 
-			length = read(fd[2], &ChildString, strlen(ChildString));
+			length = read(fd[2], ChildString, strlen(ChildString));
 
 			if(length < 0){
 
@@ -98,7 +103,8 @@ int main(){
 
 			}
 
-			length = read(fd[0], &ParentString, strlen(ParentString));
+			length = read(fd[0], ParentString, strlen(ParentString));
+			printf("%d\n", length);
 
 			if(length < 0){
 
@@ -141,24 +147,25 @@ int StringValid(char *string){
 	return 0;
 }
 
-char *ToggleString(char *str){
+char *ToggleString(char str[]){
 
 	int i = 0;
+	printf("%s\n",str);
+
 	while(i<strlen(str)){
 		
-		if((int)str[i]>=65 && (int)str[i]<=90){
-
-			str[i] = (int)str[i] + 32;
+		if(str[i]>='A' && str[i]<='Z'){
+			
+			str[i] = str[i] + 32;
 
 		}else{
 
-			str[i] = (int)str[i] + 32;
-
+			str[i] = str[i] - 32;
 		}
 		
 		i++;
 
 	}
-	printf("%s\n",str);
+
 	return str;
 }

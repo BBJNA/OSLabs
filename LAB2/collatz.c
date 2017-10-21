@@ -11,7 +11,7 @@
 void Collatz(int num);
 
 //Parent Process
-int main(int argc, char* argv[]){
+int main(int argc, char *argv[]){
 
 	int num = 0;
 	pid_t pid = fork();
