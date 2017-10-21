@@ -17,11 +17,9 @@ char buffer[MAX_BUFFER];
 
 printf("Enter in source file: ");
 scanf("%s",srcFile);
-//printf("%s\n",srcFile);
 
 printf("Enter in destination: ");
 scanf("%s",desFile);
-//printf("%s\n",desFile);
 
 int srcFD = open(srcFile,O_RDONLY);
 
