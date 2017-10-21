@@ -8,7 +8,7 @@
 #include <errno.h>
 
 int StringValid(char *string);
-char *ToggleString(char *string);
+char* ToggleString(char *string);
 
 int main(){
 
@@ -17,9 +17,6 @@ int main(){
 
 	printf("Enter in a string: ");
 	scanf("%s", ParentString);
-	char p[] = ToggleString(ParentString);
-	printf("%s", p);
-
 	int valid = StringValid(ParentString);
 
 
@@ -30,7 +27,8 @@ int main(){
 	}
 
 	int fd [4];
-	pid_t child;
+	pid_t pid;
+
 	for(i=0;i<2;i++){
 
 		if(pipe(fd+(i*2))<0){
@@ -41,96 +39,91 @@ int main(){
 		}
 	}
 
-	if((child = fork())==-1){
+	if((pid = fork())==-1){
 
 		perror("fork");
 		return 1;	
 
-	}
+	}else{
 	
-	if(child == 0){
+		if(pid == 0){
 
-		close(fd[0]);
-		close(fd[3]);
-		
-		child = getpid();
-
-		length = read(fd[2], &ChildString, length);
-		if(length <0){
-
-			perror("Pipe transfer failed");
-			exit(EXIT_FAILURE);	
-
-		}
-		
-		if(length == 0){
-
-			perror("Something went wrong");
-
-
-		}else{
-
-			printf("\nChild got string\n");
-			printf("%s\n",ChildString);
-			if(write(fd[1], ToggleString(ChildString), strlen(ChildString))<0){
+			close(fd[0]);
+			close(fd[3]);
 			
-				perror("Child did not write");
+			pid = getpid();
+
+			length = read(fd[2], &ChildString, strlen(ChildString));
+
+			if(length < 0){
+
+				perror("Pipe transfer failed");
 				exit(EXIT_FAILURE);	
-	
+
 			}
+			
+			if(length == 0){
+
+				perror("Something went wrong");
+
+
+			}else{
+
+				printf("\nChild got string\n");
+				if(write(fd[1], ToggleString(ChildString), strlen(ChildString))<0){
+				
+					perror("Child did not write");
+					exit(EXIT_FAILURE);	
 		
-		}
+				}
+			
+			}
 
-		close(fd[2]);
-		close(fd[1]);
-		return (EXIT_SUCCESS);
-		
-
-	}
-
-
-
-	close(fd[2]);
-	close(fd[1]);
-
-	child = getpid();
-
-	if(write(fd[3], ParentString, (strlen(ParentString))) != strlen(ParentString)){
-	
-		perror("Parent did not write properly");
-		exit(EXIT_FAILURE);	
-
-	}
-
-	length = read(fd[0], &ParentString, strlen(ParentString));
-
-	if(length <0){
-
-			perror("Pipe transfer failed 2");
-			exit(EXIT_FAILURE);			
-
-		}
-		
-		if(length == 0){
-
-			perror("Something went wrong 2");
+			close(fd[2]);
+			close(fd[1]);
+			return (EXIT_SUCCESS);
+			
 
 		}else{
 
-			printf("%s",ParentString);
-		
+			close(fd[2]);
+			close(fd[1]);
+
+			pid = getpid();
+
+			if(write(fd[3], ParentString, (strlen(ParentString))) != strlen(ParentString)){
+			
+				perror("Parent did not write properly");
+				exit(EXIT_FAILURE);	
+
+			}
+
+			length = read(fd[0], &ParentString, strlen(ParentString));
+
+			if(length < 0){
+
+					perror("Pipe transfer failed 2");
+					exit(EXIT_FAILURE);			
+
+				}
+				
+				if(length == 0){
+
+					perror("Something went wrong 2");
+
+				}else{
+
+					printf("%s",ParentString);
+				
+				}
+
+				close(fd[0]);
+				close(fd[3]);
+				wait(NULL);
+				return (EXIT_SUCCESS);
+
 		}
-
-		close(fd[0]);
-		close(fd[3]);
-		wait(NULL);
-
-		return (EXIT_SUCCESS);
-
-	
-
-
-	return (EXIT_SUCCESS);
+	}
 
 }	
 
@@ -153,18 +146,19 @@ char *ToggleString(char *str){
 	int i = 0;
 	while(i<strlen(str)){
 		
-		if((int)str[i]<90){
+		if((int)str[i]>=65 && (int)str[i]<=90){
 
-			str[i] += 32;
+			str[i] = (int)str[i] + 32;
 
 		}else{
 
-			str[i] -= 32;
+			str[i] = (int)str[i] + 32;
 
 		}
 		
 		i++;
 
 	}
+	printf("%s\n",str);
 	return str;
 }

@@ -1,0 +1,26 @@
+Jordan Williams and Kathleen Dunn
+OS Lab 2
+10/26/2017
+
+README FOR EACH PROGRAM
+
+-------------------
+fileCopy.C
+-------------------
+
+1) Run the compiled code.
+
+2) Type in the file you want to copy. In this folder there is a text file called source which you can use. (File must exist for this program to work)
+
+3) Type in destination. This file does not need to exist since this code will create the file and copy the source.
+
+4) Open your file in the corresponding location and confirm results.
+
+--------------------
+collatz.c
+--------------------
+
+1) Type in a number that you want to run through the algorithm
+
+2) Verify results of the output.
+

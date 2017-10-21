@@ -9,7 +9,7 @@
 #define MAX_BUFFER 8196
 
 //Parent Process
-int main(){
+int main(int argc, char* argv[]){
 
 int max_length = 100; 
 char srcFile[max_length], desFile[max_length];
@@ -53,7 +53,7 @@ while((ret_in = read(srcFD, &buffer, MAX_BUFFER))){
 close(srcFD);
 close(desFD);
 
-printf("Copying completed");
+printf("Copying completed\n");
 
 return (EXIT_SUCCESS);
 
