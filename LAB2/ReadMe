@@ -2,7 +2,7 @@ Jordan Williams and Kathleen Dunn
 OS Lab 2
 10/26/2017
 
-README FOR EACH PROGRAM
+README FOR EACH PROGRAM...All of these files are made for linux machines.
 
 -------------------
 fileCopy.C
@@ -20,7 +20,23 @@ fileCopy.C
 collatz.c
 --------------------
 
-1) Type in a number that you want to run through the algorithm
+1) Type in a number that you want to run through the algorithm.
 
 2) Verify results of the output.
+
+--------------------
+stringToggle.c
+--------------------
+
+1) Type in string of only characters.
+
+2) Verify results of output.
+
+--------------------
+stats.c
+--------------------
+
+1)Enter in numbers (Pressing Enter is a new entry for the array).
+
+2)Verify the results of Average, Minimum, and Maximum value.
 
