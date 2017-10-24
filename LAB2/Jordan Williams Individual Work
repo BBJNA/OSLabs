@@ -1,0 +1,11 @@
+Jordan Williams
+Individual Work
+10/26/17
+
+2.14) The use of periodic timer interupts could be used to monitor the code that is currently executing with the timer interupts. When code is executing a monitor will see if it is being consistent throughout the code. These are important for the system to increase concurency by optimizing the various sections.
+
+2.19) No two systems are the same so we need to have it be modifiable. Allowing the policy to change at will and have the mechanism static we can have a flexible OS.
+
+2.20) Virtual memory and storage is an example of tightly coupled systems. Virtual memory can be allocated for files inside of a process. However the virtual memory has to be physically allocated in storage where nothing already exists.
+
+2.21) Advantage of using a microkernel is it allows you to add new services without modifying the kernel. User programs and system services interact with each other by using interprocess communications. A disadvantage is also in the interprocess communications and having to allocate "a lot" of memory for them.
