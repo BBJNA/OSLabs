@@ -18,11 +18,15 @@ int main(int argc, char *argv[])
 {
     int fd[4], length;
     pid_t pid;
-    char ParentString[100], ChildString[100];
+    char ParentString[100] = "", ChildString[100];
 
-	printf("Enter in a string: ");
-	scanf("%s", ParentString);
-	
+
+	for (int i = 1; i < argc; ++i)
+	{
+		strcat(ParentString,argv[i]);
+	    strcat(ParentString," ");
+	}
+    
 	int valid = StringValid(ParentString);
 
  	if(valid != 0){
@@ -103,7 +107,6 @@ int main(int argc, char *argv[])
         perror("Parent: Failed to send value to child ");
         exit(EXIT_FAILURE);
     }
-
     // now wait for a response
     length = read(fd[P1_READ], &ParentString, sizeof(ParentString));
     if (length < 0)
@@ -136,10 +139,17 @@ int StringValid(char *string){
 
 	int i = 0;
 	while(i<strlen(string)){
-		if(!isalpha((int)string[i])){
-			printf("\nUse only letters no numbers or special characters\n");
-			return 1;
+			
+		if (string[i] != ' ')
+		{
+
+			if(!isalpha((int)string[i])){
+				printf("\nUse only letters no numbers or special characters\n");
+				return 1;
+			}		
+
 		}
+			
 		i++;
 
 	}
@@ -156,7 +166,7 @@ char *ToggleString(char str[]){
 			
 			str[i] = str[i] + 32;
 
-		}else{
+		}else if(str[i]>='a' && str[i]<='z'){
 
 			str[i] = str[i] - 32;
 		}

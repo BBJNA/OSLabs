@@ -16,6 +16,12 @@ fileCopy.C
 
 4) Open your file in the corresponding location and confirm results.
 
+Ex.
+jordan@jordan-VirtualBox:~/Git/OSLABS/LAB2$ ./fileCopy
+Enter in source file: source  
+Enter in destination: desti
+Copying completed
+
 --------------------
 collatz.c
 --------------------
@@ -24,19 +30,41 @@ collatz.c
 
 2) Verify results of the output.
 
+Ex.
+jordan@jordan-VirtualBox:~/Git/OSLABS/LAB2$ ./collatz
+Enter in a number (n > 0): 6
+Collatz: 6 3 10 5 16 8 4 2 1
+
 --------------------
 stringToggle.c
 --------------------
 
-1) Type in string of only characters.
+1) ./stringToggle <String>
 
 2) Verify results of output.
+
+Ex.
+jordan@jordan-VirtualBox:~/Git/OSLABS/LAB2$ ./stringToggle hI tHERE
+Answer: Hi There 
 
 --------------------
 stats.c
 --------------------
 
-1)Enter in numbers (Pressing Enter is a new entry for the array).
+1)./stats <Integer> <Integer> <Integer> .....
 
 2)Verify the results of Average, Minimum, and Maximum value.
 
+Ex: 
+jordan@jordan-VirtualBox:~/Git/OSLABS/LAB2$ ./stats 5 5 4 6 7 8
+Maximum Value: 8
+Minimum Value: 4
+Average Value: 5.833333
+
+--------------------
+monteCarlo.c
+--------------------
+
+1)./monteCarlo
+
+2)Verify Estimation to be close to 3.141592

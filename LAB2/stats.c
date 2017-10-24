@@ -1,134 +1,113 @@
-#define _GNU_SOURCE
-#include <signal.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <sched.h>
-#include <malloc.h>
 #include <pthread.h>
+#include <stdio.h>
+#include <string.h>
 
+void *Average(void *argv);
+void *Max(void *argv);
+void *Min(void *argv);
 
-#define STACK 1024*1024
-
-int Average(void *numbers){
-
-	double avg,sum=0;
-	int i=1;
-
-	while(i<((int *)numbers)[0]){
-
-		sum += ((int *)numbers)[i];
-		i++;
-	}
-
-	avg = sum/((int *)numbers)[0];
-
-	printf("Average Value: %lf\n", avg);
-
-	return 0;
-}
-
-int Min(void *numbers){
-
-	double min = ((int *)numbers)[0];
-	int i=1;
-
-	while(i<((int *)numbers)[0]){
-
-		if (min>((int *)numbers)[i])
-		{
-			min = ((int *)numbers)[i];
-		}
-		i++;
-	}
-
-	printf("Minimum Value: %lf\n", min);
-
-	return 0;
-}
-
-int Max(void *numbers){
-
-	double max = ((int *)numbers)[0];
-	int i=1;
-
-
-	while(i<((int *)numbers)[0]){
-
-		if (max<((int *)numbers)[i])
-		{
-			max = ((int *)numbers)[i];
-		}
-		i++;
-	}
-
-	printf("Maximum: %lf\n", max);
-
-	return 0;
-}
+int length;
 
 //Parent Process
 int main(int argc, char *argv[]){
 
-	int numinputs, i = 1;
+	length = argc;
+	int i = 1;
+	pthread_t tidAvg, tidMin, tidMax;
+	pthread_attr_t attr;
 
-	printf("Number of inputs: ");
-	scanf("%d", &numinputs);
+	if (argc < 2)
+	{		
 
-	int numbers[numinputs+1];
-	numbers[0] = numinputs;
+		fprintf(stderr, "usage: stats <interger values>\n");
+		return -1;
 
-	printf("Enter in Numbers (Press enter for new entry):\n");
+	}
 
-	while(i<numinputs+1){
+	while(i<argc){
 
-		scanf("%d", &numbers[i]);
+		if(atoi(argv[i])<0){
+
+			fprintf(stderr, "%d must be >=0\n", atoi(argv[i]));
+
+		}//end If
 		i++;
+	}//end While
 
-	}
+	/* get the default attributes */
+	pthread_attr_init(&attr);
+	
+	/* create the thread */
+	pthread_create(&tidAvg,&attr,Average,(void *)argv);
+	pthread_create(&tidMin,&attr,Min,(void *)argv);
+	pthread_create(&tidMax,&attr,Max,(void *)argv);
+	
+	/* wait for the thread to exit */
+	pthread_join(tidMin,NULL);
+	pthread_join(tidAvg,NULL);
+	pthread_join(tidMax,NULL);
 
-	char *stack = (char *)	malloc(STACK);
+	pthread_exit(NULL);
 
-	if(stack == 0){
-
-		perror("malloc failed...");
-		exit(1);
-
-	}
-
-	char *stackhead = stack + STACK -1;
-
-	pid_t pidAvg, pidMin, pidMax;
-
-	pidAvg = clone(Average,stackhead,CLONE_VM | CLONE_FS| 
-		CLONE_FILES | CLONE_SIGHAND | CLONE_THREAD | CLONE_SETTLS | 
-		CLONE_PARENT_SETTID | CLONE_CHILD_CLEARTID | CLONE_SYSVSEM | 
-		CLONE_DETACHED, numbers);
-
-	pidMax = clone(Max,stackhead,CLONE_VM | CLONE_FS| 
-		CLONE_FILES | CLONE_SIGHAND | CLONE_THREAD | CLONE_SETTLS | 
-		CLONE_PARENT_SETTID | CLONE_CHILD_CLEARTID | CLONE_SYSVSEM | 
-		CLONE_DETACHED, numbers);
-
-	pidMin = clone(Min,stackhead,CLONE_VM | CLONE_FS| 
-		CLONE_FILES | CLONE_SIGHAND | CLONE_THREAD | CLONE_SETTLS | 
-		CLONE_PARENT_SETTID | CLONE_CHILD_CLEARTID | CLONE_SYSVSEM | 
-		CLONE_DETACHED, numbers);
-
-	waitpid(-1, NULL, __WALL);
-	if (pidAvg == -1)
-	{	
-		perror("waitpid");
-		exit(3);
-	}
-
-	free(stack);
-
-return (EXIT_SUCCESS);
 
 }
 
+void *Average(void *argv){
+
+	char **numbers = (char**)argv;
+
+	double avg,sum=0;
+	int i = 1;
+
+	while(i < length){
+
+		sum += atoi(numbers[i]);
+		i++;
+	}
+
+	avg = sum/(length-1);
+
+	printf("Average Value: %lf\n", avg);
+	pthread_exit(NULL);
+}
+
+void *Max(void *argv){
+
+	char **numbers = (char**)argv;
+
+	int max = atoi(numbers[1]), i = 1;
+
+	while(i < length){
+		if (atoi(numbers[i])>max)
+		{
+
+			max = atoi(numbers[i]);
+
+		}
+		i++;
+	}
+
+	printf("Maximum Value: %d\n", max);
+	pthread_exit(NULL);
+}
+
+void *Min(void *argv){
+
+	char **numbers = (char**)argv;
+
+	int min = atoi(numbers[1]), i = 1;
+
+
+	while(i < length){
+		if (atoi(numbers[i])<min)
+		{
+
+			min = atoi(numbers[i]);
+
+		}
+		i++;
+	}
+
+	printf("Minimum Value: %d\n", min);
+	pthread_exit(NULL);
+}
