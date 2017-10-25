@@ -2,7 +2,7 @@ Jordan Williams and Kathleen Dunn
 OS Lab 2
 10/26/2017
 
-README FOR EACH PROGRAM...All of these files are made for linux machines.
+README FOR EACH PROGRAM...All of these files are made for linux machines/ Haiku Server/Client is in java.
 
 -------------------
 fileCopy.C
@@ -32,7 +32,7 @@ collatz.c
 
 Ex.
 jordan@jordan-VirtualBox:~/Git/OSLABS/LAB2$ ./collatz
-Enter in a number (n > 0): 6
+Enter in a number (n > 0): 6t
 Collatz: 6 3 10 5 16 8 4 2 1
 
 --------------------
@@ -91,5 +91,27 @@ X: -0.810000 Y: -0.408000 Magnitude: 0.906953
 PI is estimated as: 3.294118 with 17 total points and 14 inside the circle.
 
 ------------------------
-
+fibonacci.c
 ------------------------
+
+1) ./fibonacci <positive integer>
+
+2) Verify Results
+
+Ex.
+jordan@jordan-VirtualBox:~/Git/OSLabs/LAB2$ ./fibonacci 9
+0 1 2 3 5 8 13 21 34 
+jordan@jordan-VirtualBox:~/Git/OSLabs/LAB2$ 
+
+-----------------------
+Haiku Java
+-----------------------
+
+1) Run the server java code
+
+2) Run the client java code
+
+3) Server sends haiku to client
+
+Ex.
+SEE SCREENSHOT
