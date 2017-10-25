@@ -29,7 +29,7 @@ int main(int argc, char *argv[]){
 
 	double pi = 4*(double)pointsInCircle/(double)totalPoints;
 
-	printf("PI is estimated as: %lf with %d total and %d inside the circle.\n", pi, totalPoints, pointsInCircle);
+	printf("PI is estimated as: %lf with %d total points and %d inside the circle.\n", pi, totalPoints, pointsInCircle);
 
 	pthread_exit(NULL);
 
@@ -47,7 +47,7 @@ void *PointGen(void *argv){
 		x = randNum();
 		y = randNum();
 		M = sqrt(pow(x,2)+pow(y,2));
-		printf("%lf %lf %lf\n", x,y,M);
+		printf("X: %lf Y: %lf Magnitude: %lf\n", x,y,M);
 		
 		if (M<=1)
 		{

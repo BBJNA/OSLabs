@@ -65,6 +65,31 @@ Average Value: 5.833333
 monteCarlo.c
 --------------------
 
-1)./monteCarlo
+1) ./monteCarlo
 
-2)Verify Estimation to be close to 3.141592
+2) Verify Estimation to be close to 3.141592
+
+Ex:
+jordan@jordan-VirtualBox:~/Git/OSLabs/LAB2$ ./monteCarlo
+X: 0.204000 Y: -0.204000 Magnitude: 0.288500
+X: -0.848000 Y: 0.546000 Magnitude: 1.008573
+X: 0.898000 Y: 0.100000 Magnitude: 0.903551
+X: -0.272000 Y: -0.470000 Magnitude: 0.543032
+X: -0.814000 Y: -0.026000 Magnitude: 0.814415
+X: -0.616000 Y: 0.082000 Magnitude: 0.621434
+X: -0.188000 Y: -0.930000 Magnitude: 0.948812
+X: 0.446000 Y: -0.208000 Magnitude: 0.492118
+X: 0.178000 Y: -0.678000 Magnitude: 0.700976
+X: 0.392000 Y: -0.176000 Magnitude: 0.429698
+X: 0.164000 Y: -0.778000 Magnitude: 0.795097
+X: -0.974000 Y: 0.468000 Magnitude: 1.080602
+X: -0.324000 Y: -0.182000 Magnitude: 0.371618
+X: 0.828000 Y: 0.702000 Magnitude: 1.085536
+X: 0.742000 Y: 0.394000 Magnitude: 0.840119
+X: 0.736000 Y: -0.054000 Magnitude: 0.737978
+X: -0.810000 Y: -0.408000 Magnitude: 0.906953
+PI is estimated as: 3.294118 with 17 total points and 14 inside the circle.
+
+------------------------
+
+------------------------
